@@ -1,0 +1,37 @@
+ul {
+    list-style-type: none;
+}
+
+.adding-new-invoice {
+    display: flex;
+    justify-content: center;
+}
+
+.adding-new-invoice-form {
+    min-width: 40%;    
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.adding-new-invoice-label {
+    display: flex;
+    margin: 10px 0;
+}
+
+.invoice-list {
+    margin: 50px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.buttons {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}

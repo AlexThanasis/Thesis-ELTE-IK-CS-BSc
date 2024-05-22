@@ -1,0 +1,127 @@
+<div class="container">
+    <div class="title">Invoice list</div>
+    <div class="subtitle">Description of the invoices</div>
+    <div class="adding-new-invoice">
+        <div *ngIf="!isAddNewOpen" class="buttons">
+            <button type="button" (click)="toggleIsAddNewOpen()">Add new invoice</button>
+        </div>
+        <div *ngIf="isAddNewOpen" class="adding-new-invoice-form">
+            adding
+            <span class="adding-new-invoice-label">
+                Invoice data:
+            </span>
+            <div class="row">
+                <span class="label">
+                    Invoice Numebr:
+                </span>
+                <input type="text" [(ngModel)]="newInvoice.invoiceNumber">
+            </div>
+            <div class="row">
+                <span class="label">
+                    Issue date:
+                </span>
+                <input type="date" [(ngModel)]="newInvoice.issueDate">
+            </div>
+            <div class="row">
+                <span class="label">
+                    Payment date:
+                </span>
+                <input type="date" [(ngModel)]="newInvoice.paymentDate">
+            </div>
+            <div class="row">
+                <span class="label">
+                    Fulfillment date:
+                </span>
+                <input type="date" [(ngModel)]="newInvoice.fulfilmentDate">
+            </div>
+            <div class="row">
+                <span class="label">
+                    Net value:
+                </span>
+                <input type="number" [(ngModel)]="newInvoice.netValue">
+            </div>
+            <div class="row">
+                <span class="label">
+                    VAT:
+                </span>
+                <input type="number" [(ngModel)]="newInvoice.vat">
+            </div>
+            <div class="row">
+                <span class="label">
+                    Gross value:
+                </span>
+                <input type="number" [(ngModel)]="newInvoice.grossValue">
+            </div>
+            <div class="row">
+                <span class="label">
+                    Currency:
+                </span>
+                <input type="text" value="HUF" [(ngModel)]="newInvoice.currency">
+            </div>
+            <span class="adding-new-invoice-label">
+                Customer data:
+            </span>
+            <div class="row">
+                <span class="title">
+                    Name:
+                </span>
+                <input type="text" [(ngModel)]="newInvoice.customerName">
+            </div>
+            <div class="row">
+                <span class="label">
+                    Address:
+                </span>
+                <input type="text" [(ngModel)]="newInvoice.customerAddress">
+            </div>
+            <div class="row">
+                <span class="label">
+                    Tax number:
+                </span>
+                <input type="text" [(ngModel)]="newInvoice.customerTaxNumber">
+            </div>
+            <span class="adding-new-invoice-label">
+                Issuer data:
+            </span>
+            <div class="row">
+                <span class="label">
+                    Company ID:
+                </span>
+                <input type="number" [(ngModel)]="newInvoice.companyId">
+            </div>
+            <div class="row">
+                <span class="label">
+                    Name:
+                </span>
+                <input type="text" [(ngModel)]="newInvoice.issuerName">
+            </div>
+            <div class="row">
+                <span class="label">
+                    Address:
+                </span>
+                <input type="text" [(ngModel)]="newInvoice.issuerAddress">
+            </div>
+            <div class="row">
+                <span class="label">
+                    Tax number:
+                </span>
+                <input type="text" [(ngModel)]="newInvoice.issuerTaxNumber">
+            </div>
+            <div class="buttons">
+                <button type="button" (click)="toggleIsAddNewOpen()">Cancel</button>
+                <button type="button" (click)="toggleIsAddNewOpen(); addNewInvoice();">Add new invoice</button>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <ul class="invoice-list">
+            <li *ngFor="let invoice of invoices">
+                <app-invoice-list-detail [invoice]="invoice">
+                    //kis lista jojjon ide
+                    //kattintas kivalasztas
+                </app-invoice-list-detail>
+                <!-- {{invoice.customerName}} -->
+            </li>
+        </ul>
+    </div>
+</div>

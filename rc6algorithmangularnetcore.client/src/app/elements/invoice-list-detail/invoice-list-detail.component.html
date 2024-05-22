@@ -1,0 +1,20 @@
+<a class="invoice-list-detail" routerLink="/invoice/{{invoice.id}}" routerLinkActive="active">
+    <div class="label">
+        <span class="label-title">
+            Adós neve:
+        </span>
+        <span class="label-value">{{invoice.customerName}}</span>
+    </div>
+    <div class="label">
+        <span class="label-title">
+            Érték:
+        </span>
+        <span class="label-value">{{invoice.grossValue}} {{invoice.currency}}</span>
+    </div>
+    <div class="label">
+        <span class="label-title">
+            Dátum:
+        </span>
+        <span class="label-value">{{invoice.issueDate}}</span>
+    </div>
+</a>

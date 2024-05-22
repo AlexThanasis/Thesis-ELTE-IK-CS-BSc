@@ -1,0 +1,17 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+    /* background-image: linear-gradient(transparent, white, transparent); */
+    background-color: white;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+a {
+    text-decoration: none;
+}

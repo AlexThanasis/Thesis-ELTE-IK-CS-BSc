@@ -1,0 +1,15 @@
+
+.label {
+    display: flex;
+    gap: 5%;
+}
+
+.label-title {
+    min-width: 15%;
+    display: flex;
+    justify-content: baseline;
+}
+
+.label-value {
+    color: rgba(10, 10, 10, 0.8);
+}

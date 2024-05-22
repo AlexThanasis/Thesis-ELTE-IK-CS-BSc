@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="label">
+        <span class="label-title">Id: </span>
+        <span class="label-value">
+            {{invoice.id}}
+        </span>
+    </div>
+    <div class="label">
+        <span class="label-title">Vevo neve: </span>
+        <span class="label-value">
+            {{invoice.customerName}}
+        </span>
+    </div>
+    <div class="label">
+        <span class="label-title">Vevo adoszama: </span>
+        <span class="label-value">
+            {{invoice.customerTaxNumber}}
+        </span>
+    </div>
+    <div class="label">
+        <span class="label-title">Ertek: </span>
+        <span class="label-value">
+            {{invoice.grossValue}} {{invoice.currency}}
+        </span>
+    </div>
+    <div class="label">
+        <span class="label-title">Kiallitas datuma: </span>
+        <span class="label-value">
+            {{invoice.issueDate}}
+        </span>
+    </div>
+    <div class="label">
+        <span class="label-title">Teljesites datuma: </span>
+        <span class="label-value">
+            {{invoice.fulfilmentDate}}
+        </span>
+    </div>
+    <div class="label">
+        <span class="label-title">Vevo cime: </span>
+        <span class="label-value">
+            {{invoice.customerAddress}}
+        </span>
+    </div>
+</div>

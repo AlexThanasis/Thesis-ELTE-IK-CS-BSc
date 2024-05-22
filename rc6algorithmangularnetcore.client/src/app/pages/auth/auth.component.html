@@ -1,0 +1,22 @@
+
+
+<div class="content" role="main">
+    <h2>Register</h2>
+    <div class="">name:<input type="text" [(ngModel)]="registerDto.name"></div>
+    <div class="">email:<input type="text" [(ngModel)]="registerDto.email"></div>
+    <div class="">password:<input type="text" [(ngModel)]="registerDto.password"></div>
+    <button (click)="register(registerDto)">Register</button>
+
+    <hr />
+
+    <h2>Login</h2>
+    <div class="">email:<input type="text" [(ngModel)]="loginDto.email"></div>
+    <div class="">password:<input type="text" [(ngModel)]="loginDto.password"></div>
+    <button (click)="login(loginDto)">Login</button>
+
+    <hr />
+
+    <button (click)="weather()">Get Weather</button>
+    <button (click)="invoices()">Get Invoices</button>
+
+</div>
