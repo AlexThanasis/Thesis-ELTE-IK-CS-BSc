@@ -3,6 +3,8 @@ using RC6AlgorithmAngularNetCore.Server.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RC6AlgorithmAngularNetCore.Server.Cipher;
+using System.Text;
 
 namespace RC6AlgorithmAngularNetCore.Server.Controllers;
 
@@ -20,7 +22,12 @@ public class InvoiceController : ControllerBase
     public async Task<ActionResult<List<Invoice>>> GetAllInvoices()
     {
         var invoices = await _context.Invoices.ToListAsync();
-
+        //for (int i = 0; i < invoices.Count; i++)
+        //{
+            
+            //invoices[i].CustomerTaxNumber = RC6.DecryptFromDB(invoices[i].CustomerTaxNumber, 128, "secretKeyForThesis");
+            //invoices[i].CustomerAddress = RC6.DecryptFromDB(invoices[i].CustomerAddress, 128, "secretKeyForThesis");
+       // }
         return Ok(invoices);
     }
 
@@ -33,12 +40,38 @@ public class InvoiceController : ControllerBase
             return NotFound("Invoice not found.");
         // return BadRequest("Invoice not found.");
 
+
+        Console.WriteLine(invoice.CustomerTaxNumber);
+        Console.WriteLine(RC6.DecryptFromDB(invoice.CustomerTaxNumber, 128, "secretKeyForThesis"));
+
+        Console.WriteLine(invoice.CustomerAddress);
+        Console.WriteLine(RC6.DecryptFromDB(invoice.CustomerAddress, 128, "secretKeyForThesis"));
+
+        invoice.CustomerTaxNumber = RC6.DecryptFromDB(invoice.CustomerTaxNumber, 128, "secretKeyForThesis");
+        invoice.CustomerAddress = RC6.DecryptFromDB(invoice.CustomerAddress, 128, "secretKeyForThesis");
+
+        // Console.WriteLine(invoice.CustomerTaxNumber);
+        // string cipher = RC6.EncryptForDB(invoice.CustomerTaxNumber, 128, "secretKeyForThesis");
+        // Console.WriteLine(cipher);
+        //string text = RC6.DecryptFromDB(cipher, 128, "secretKeyForThesis");
+        //Console.WriteLine(text);
+
+        // invoice.CustomerTaxNumber = Encoding.ASCII.GetString(RC6.EncodeRc6(RC6.GenerateKey(128, Encoding.ASCII.GetBytes("secretKeyForThesis")), plainCustomerTaxNumber));
+        // invoice.CustomerAddress = Encoding.ASCII.GetString(RC6.EncodeRc6(RC6.GenerateKey(128, Encoding.ASCII.GetBytes("secretKeyForThesis")), invoice.CustomerAddress));
+
         return Ok(invoice);
     }
 
     [HttpPost]
     public async Task<ActionResult<List<Invoice>>> AddInvoice([FromBody] Invoice invoice)
     {
+        var plainCustomerTaxNumber = invoice.CustomerTaxNumber;
+        // invoice.CustomerTaxNumber = Encoding.ASCII.GetString(RC6.EncodeRc6(RC6.GenerateKey(128, Encoding.ASCII.GetBytes("secretKeyForThesis")), plainCustomerTaxNumber));
+        // invoice.CustomerAddress = Encoding.ASCII.GetString(RC6.EncodeRc6(RC6.GenerateKey(128, Encoding.ASCII.GetBytes("secretKeyForThesis")), invoice.CustomerAddress));
+       // invoice.CustomerTaxNumber = RC6.EncryptForDB(invoice.CustomerTaxNumber, 128, "secretKeyForThesis");
+       // invoice.CustomerAddress = RC6.EncryptForDB(invoice.CustomerAddress, 128, "secretKeyForThesis")
+
+
         _context.Invoices.Add(invoice);
         await _context.SaveChangesAsync();
 
@@ -57,13 +90,23 @@ public class InvoiceController : ControllerBase
         dbInvoice.VAT = updatedInvoice.VAT;
         dbInvoice.companyId = updatedInvoice.companyId;
         dbInvoice.InvoiceNumber = updatedInvoice.InvoiceNumber;
-        dbInvoice.CustomerTaxNumber = updatedInvoice.CustomerTaxNumber;
+        dbInvoice.CustomerTaxNumber = RC6.EncryptForDB(updatedInvoice.CustomerTaxNumber, 128, "secretKeyForThesis");
         dbInvoice.CustomerName = updatedInvoice.CustomerName;
-        dbInvoice.CustomerAddress = updatedInvoice.CustomerAddress;
+        dbInvoice.CustomerAddress = RC6.EncryptForDB(updatedInvoice.CustomerAddress, 128, "secretKeyForThesis");
         dbInvoice.IssuerTaxNumber = updatedInvoice.IssuerTaxNumber;
         dbInvoice.IssuerName = updatedInvoice.IssuerName;
         dbInvoice.IssuerAddress = updatedInvoice.IssuerAddress;
         dbInvoice.Currency = updatedInvoice.Currency;
+        
+        Console.WriteLine("Faszom");
+        Console.WriteLine(RC6.DecryptFromDB(RC6.EncryptForDB(updatedInvoice.CustomerTaxNumber, 128, "secretKeyForThesis")));
+        Console.WriteLine(RC6.EncryptForDB(updatedInvoice.CustomerTaxNumber, 128, "secretKeyForThesis"));
+
+        Console.WriteLine(updatedInvoice.CustomerTaxNumber); 
+        Console.WriteLine(RC6.DecryptFromDB(RC6.EncryptForDB(updatedInvoice.CustomerAddress, 128, "secretKeyForThesis")));
+        Console.WriteLine(RC6.EncryptForDB(updatedInvoice.CustomerTaxNumber, 128, "secretKeyForThesis"));
+
+        Console.WriteLine(updatedInvoice.CustomerAddress);
 
         await _context.SaveChangesAsync();
 
