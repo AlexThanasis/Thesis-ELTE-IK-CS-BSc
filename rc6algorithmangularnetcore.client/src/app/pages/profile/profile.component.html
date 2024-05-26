@@ -1,5 +1,7 @@
 <div class="container">
     <h2 class="title">Profile</h2>
-    <p>Email address: {{userData && userData.email}}</p>
-    <button (click)="logout()">Logout</button>
+    <p>Email address: {{ userData }}</p>
+    <div>
+        <button (click)="logout()">Logout</button>
+    </div>
 </div>

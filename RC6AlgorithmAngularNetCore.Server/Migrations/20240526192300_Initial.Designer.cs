@@ -12,7 +12,7 @@ using RC6AlgorithmAngularNetCore.Server.Data;
 namespace RC6AlgorithmAngularNetCore.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240513205414_Initial")]
+    [Migration("20240526192300_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -227,6 +227,39 @@ namespace RC6AlgorithmAngularNetCore.Server.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("RC6AlgorithmAngularNetCore.Server.Entities.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaxNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
+                });
+
             modelBuilder.Entity("RC6AlgorithmAngularNetCore.Server.Entities.Invoice", b =>
                 {
                     b.Property<int>("Id")
@@ -234,6 +267,9 @@ namespace RC6AlgorithmAngularNetCore.Server.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Currency")
                         .IsRequired()
@@ -266,18 +302,6 @@ namespace RC6AlgorithmAngularNetCore.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IssuerAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IssuerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IssuerTaxNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<float>("NetValue")
                         .HasColumnType("real");
 
@@ -287,9 +311,6 @@ namespace RC6AlgorithmAngularNetCore.Server.Migrations
 
                     b.Property<float>("VAT")
                         .HasColumnType("real");
-
-                    b.Property<int>("companyId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -5,6 +5,8 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Register } from '../../models/register';
 import { JwtAuth } from '../../models/jwtAuth';
 import { Router } from '@angular/router';
+import { Company } from 'src/app/models/company';
+import { CompanyService } from 'src/app/services/company.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,13 +15,15 @@ import { Router } from '@angular/router';
 })
 export class AuthComponent {
   loginDto = new Login();
-  registerDto = new Register();
+  userRegisterDto = new Register();
+  companyRegisterDto = new Company();
   jwtDto = new JwtAuth();
 
   constructor(
     // private http: HttpClient,
     private authService: AuthenticationService,
     private invoiceService: InvoicesService,
+    private companyService: CompanyService,
     private router: Router,
   ) { }
 
@@ -27,8 +31,12 @@ export class AuthComponent {
     // this.getForecasts();
   }
 
-  register(registerDto: Register) {
+  register(registerDto: Register, companyRegisterDto: Company) {
+    companyRegisterDto.email = registerDto.email;
     this.authService.register(registerDto).subscribe();
+    this.companyService.addCompany(companyRegisterDto).subscribe();
+    console.log("Register> ");
+
   }
 
   login(loginDto: Login) {

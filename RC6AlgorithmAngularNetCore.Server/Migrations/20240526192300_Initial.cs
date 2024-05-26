@@ -51,16 +51,30 @@ namespace RC6AlgorithmAngularNetCore.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Companies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TaxNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Companies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Invoices",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    companyId = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
                     InvoiceNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IssuerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IssuerTaxNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IssuerAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CustomerTaxNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CustomerAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -240,6 +254,9 @@ namespace RC6AlgorithmAngularNetCore.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Companies");
 
             migrationBuilder.DropTable(
                 name: "Invoices");

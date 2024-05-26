@@ -3,13 +3,9 @@
     public class Invoice
     {
         public int Id { get; set; }
-        public int companyId { get; set; }
+        public int CompanyId { get; set; }
 
         public required string InvoiceNumber { get; set; }
-        public string IssuerName { get; set; }
-        public required string IssuerTaxNumber { get; set; }
-
-        public string IssuerAddress { get; set; }
 
         public string CustomerName { get; set; }
         public string CustomerTaxNumber { get; set; }

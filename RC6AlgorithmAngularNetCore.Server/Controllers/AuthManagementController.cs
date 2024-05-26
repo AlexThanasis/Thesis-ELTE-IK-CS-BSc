@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RC6AlgorithmAngularNetCore.Server.Configurations;
 using RC6AlgorithmAngularNetCore.Server.Entities.DTOs;
+using System.ComponentModel.Design;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -120,39 +122,26 @@ namespace AngularAndDotNetCoreCRUD.Server.Controllers
             return BadRequest("Invalid request payload");
         }
 
-        // [HttpGet("GetMe")]
-        // //[Authorize]
-        // public IActionResult GetMe()
-        // {
-        //     Console.WriteLine("GETME1");
-        //     var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
-        //     Console.WriteLine("GETME2" + claimsIdentity);
+        [HttpGet("me")]
+        [Authorize]
+        public IActionResult GetCurrentUser()
+        {
+            Console.WriteLine("me endpoint");
+            // Get the user id from the JWT token
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Console.WriteLine("me userId: " + userId);
+            Console.WriteLine("ClaimTypes.NameIdentifier: " + User.FindFirst(ClaimTypes.NameIdentifier) + User.FindFirst(ClaimTypes.NameIdentifier)?.Issuer);
 
-        //     if (claimsIdentity != null)
-        //     {
-        //         var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Sub);
-        //         var usernameClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.UniqueName);
-        //         Console.WriteLine("GETME3A" + userIdClaim);
-        //         Console.WriteLine("GETME3B" + usernameClaim);
-        //         Console.WriteLine("GETME3C" + claimsIdentity.Claims.ToList().Count);
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
 
-        //         foreach (var item in claimsIdentity.Claims.ToList())
-        //         {
-        //             Console.WriteLine(item.ToString());
-        //         }
+            var user = _userManager.FindByEmailAsync(userId);
+            
+            Console.WriteLine("me user: " + user);
 
-        //         if (userIdClaim != null && usernameClaim != null)
-        //         {
-        //             return Ok(new
-        //             {
-        //                 UserId = userIdClaim.Value,
-        //                 Username = usernameClaim.Value
-        //             });
-        //         }
-        //     }
-        //     Console.WriteLine("GETME0");
-
-        //     return Unauthorized();
-        // }
+            return Ok(user);
+        }
     }
 }

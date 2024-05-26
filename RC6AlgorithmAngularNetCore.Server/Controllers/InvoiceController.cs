@@ -68,25 +68,12 @@ public class InvoiceController : ControllerBase
         dbInvoice.NetValue = updatedInvoice.NetValue;
         dbInvoice.GrossValue = updatedInvoice.GrossValue;
         dbInvoice.VAT = updatedInvoice.VAT;
-        dbInvoice.companyId = updatedInvoice.companyId;
+        dbInvoice.CompanyId = updatedInvoice.CompanyId;
         dbInvoice.InvoiceNumber = updatedInvoice.InvoiceNumber;
         dbInvoice.CustomerTaxNumber = RC6.EncryptForDB(updatedInvoice.CustomerTaxNumber, 128, "secretKeyForThesis");
         dbInvoice.CustomerName = updatedInvoice.CustomerName;
         dbInvoice.CustomerAddress = RC6.EncryptForDB(updatedInvoice.CustomerAddress, 128, "secretKeyForThesis");
-        dbInvoice.IssuerTaxNumber = updatedInvoice.IssuerTaxNumber;
-        dbInvoice.IssuerName = updatedInvoice.IssuerName;
-        dbInvoice.IssuerAddress = updatedInvoice.IssuerAddress;
         dbInvoice.Currency = updatedInvoice.Currency;
-        
-        Console.WriteLine("Faszom");
-        Console.WriteLine(RC6.DecryptFromDB(RC6.EncryptForDB(updatedInvoice.CustomerTaxNumber, 128, "secretKeyForThesis")));
-        Console.WriteLine(RC6.EncryptForDB(updatedInvoice.CustomerTaxNumber, 128, "secretKeyForThesis"));
-
-        Console.WriteLine(updatedInvoice.CustomerTaxNumber); 
-        Console.WriteLine(RC6.DecryptFromDB(RC6.EncryptForDB(updatedInvoice.CustomerAddress, 128, "secretKeyForThesis")));
-        Console.WriteLine(RC6.EncryptForDB(updatedInvoice.CustomerTaxNumber, 128, "secretKeyForThesis"));
-
-        Console.WriteLine(updatedInvoice.CustomerAddress);
 
         await _context.SaveChangesAsync();
 

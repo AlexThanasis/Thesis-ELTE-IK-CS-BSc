@@ -2,10 +2,16 @@
 
 <div class="content" role="main">
     <h2>Register</h2>
-    <div class="">name:<input type="text" [(ngModel)]="registerDto.name"></div>
-    <div class="">email:<input type="text" [(ngModel)]="registerDto.email"></div>
-    <div class="">password:<input type="text" [(ngModel)]="registerDto.password"></div>
-    <button (click)="register(registerDto)">Register</button>
+    Credentials
+    <div class="">name:<input type="text" [(ngModel)]="userRegisterDto.name"></div>
+    <div class="">email:<input type="text" [(ngModel)]="userRegisterDto.email"></div>
+    <div class="">password:<input type="text" [(ngModel)]="userRegisterDto.password"></div>
+    Company informations
+    <div class="">name:<input type="text" [(ngModel)]="companyRegisterDto.name"></div>
+    <div class="">company Id:<input type="text" [(ngModel)]="companyRegisterDto.companyId"></div>
+    <div class="">tax number:<input type="text" [(ngModel)]="companyRegisterDto.taxNumber"></div>v>
+    <div class="">address:<input type="text" [(ngModel)]="companyRegisterDto.address"></div>
+    <button (click)="register(userRegisterDto, companyRegisterDto);">Register</button>
 
     <hr />
 

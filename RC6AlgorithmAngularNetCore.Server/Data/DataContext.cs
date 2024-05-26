@@ -13,5 +13,6 @@ namespace RC6AlgorithmAngularNetCore.Server.Data
         }
 
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<Company> Companies { get; set; }
     }
 }

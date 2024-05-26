@@ -12,7 +12,7 @@ import { JwtAuth } from "../models/jwtAuth";
 export class AuthenticationService {
   registerUrl = "AuthManagement/Register";
   loginUrl = "AuthManagement/Login";
-  getMeUrl = "AuthManagement/GetMe";
+  getMeUrl = "AuthManagement/me";
   weatherUrl = "WeatherForecast";
 
   constructor(private httpClient: HttpClient) { }
@@ -25,8 +25,8 @@ export class AuthenticationService {
     return this.httpClient.post<JwtAuth>(`${environment.apiUrl}/${this.loginUrl}`, user);
   }
 
-  public logout(): Observable<any> {
-    throw new Error('Method not implemented.');
+  public logout(): void {
+    console.log("LOG OUT");
   }
 
   public getMe(): Observable<any> {
