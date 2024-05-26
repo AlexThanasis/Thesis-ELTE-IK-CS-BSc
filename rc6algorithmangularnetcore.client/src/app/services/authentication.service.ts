@@ -12,8 +12,7 @@ import { JwtAuth } from "../models/jwtAuth";
 export class AuthenticationService {
   registerUrl = "AuthManagement/Register";
   loginUrl = "AuthManagement/Login";
-  getMeUrl = "AuthManagement/me";
-  weatherUrl = "WeatherForecast";
+  getMeUrl = "AuthManagement/Me";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -31,9 +30,5 @@ export class AuthenticationService {
 
   public getMe(): Observable<any> {
     return this.httpClient.get<any>(`${environment.apiUrl}/${this.getMeUrl}`);
-  }
-
-  public getWeather(): Observable<any> {
-    return this.httpClient.get<any>(`${environment.apiUrl}/${this.weatherUrl}`);
   }
 }

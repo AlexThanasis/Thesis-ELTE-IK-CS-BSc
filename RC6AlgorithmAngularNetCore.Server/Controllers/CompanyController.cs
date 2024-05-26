@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RC6AlgorithmAngularNetCore.Server.Cipher;
 using RC6AlgorithmAngularNetCore.Server.Data;
 using RC6AlgorithmAngularNetCore.Server.Entities;
-using System.Security.Cryptography;
 
 namespace RC6AlgorithmAngularNetCore.Server.Controllers
 {
@@ -33,9 +31,6 @@ namespace RC6AlgorithmAngularNetCore.Server.Controllers
         [Route("Add")]
         public async Task<ActionResult<Company>> AddCompany([FromBody] Company company)
         {
-            Console.WriteLine("ADDCO");
-            Console.WriteLine("company: ", company);
-
             _context.Companies.Add(company);
             await _context.SaveChangesAsync();
 

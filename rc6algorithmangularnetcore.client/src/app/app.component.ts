@@ -5,6 +5,7 @@ import { Register } from './models/register';
 import { JwtAuth } from './models/jwtAuth';
 import { AuthenticationService } from './services/authentication.service';
 import { InvoicesService } from './services/invoices.service';
+import { CompanyService } from './services/company.service';
 
 interface WeatherForecast {
   date: string;
@@ -26,31 +27,23 @@ export class AppComponent implements OnInit {
   jwtDto = new JwtAuth();
 
   constructor(
-    // private http: HttpClient,
     private authService: AuthenticationService,
-    private invoiceService: InvoicesService
+    private invoiceService: InvoicesService,
+    private companyService: CompanyService
   ) { }
 
   ngOnInit() {
-    // this.getForecasts();
-  }
+    this.authService.getMe().subscribe((data) => {
+      console.log("DATA: ", JSON.stringify(data.result.email));
 
-  register(registerDto: Register) {
-    this.authService.register(registerDto).subscribe();
-  }
-
-  login(loginDto: Login) {
-    console.log("LOGIN> ", loginDto);
-
-    this.authService.login(loginDto).subscribe((jwtDto) => {
-      localStorage.setItem('jwtToken', jwtDto.token);
+      if (data && data.result) {
+        localStorage.setItem("email", data.result.email);
+        this.companyService.getCompany(data.result.email).subscribe(company => {
+          this.companyService.company = company;
+          localStorage.setItem("company", JSON.stringify(company));
+        });
+      }
     });
-  }
-
-  weather() {
-    this.authService.getWeather().subscribe((weatherData: any) => {
-      console.log(weatherData);
-    })
   }
 
   invoices() {

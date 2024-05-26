@@ -1,6 +1,13 @@
 <div class="container">
     <h2 class="title">Profile</h2>
-    <p>Email address: {{ userData }}</p>
+    <div *ngIf="!userData" class="label">Something wrong with user data</div>
+    <div *ngIf="userData" class="form-section">
+        <div class="row">Company email: {{ userData.companyEmail }}</div>
+        <div class="row">Company address: {{ userData.address }}</div>
+        <div class="row">Company Official Name: {{ userData.name }}</div>
+        <div class="row">Our taxnumber: {{ userData.taxNumber }}</div>
+        <div class="row">Id: {{ userData.companyId }}</div>
+    </div>
     <div>
         <button (click)="logout()">Logout</button>
     </div>

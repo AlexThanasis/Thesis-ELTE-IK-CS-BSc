@@ -11,12 +11,6 @@ ul {
     min-width: 40%;    
 }
 
-.row {
-    display: flex;
-    justify-content: space-between;
-}
-
-
 .adding-new-invoice-label {
     display: flex;
     margin: 10px 0;

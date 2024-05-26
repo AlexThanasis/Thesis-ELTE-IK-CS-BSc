@@ -36,6 +36,7 @@ export class AuthComponent {
     this.authService.register(registerDto).subscribe();
     this.companyService.addCompany(companyRegisterDto).subscribe();
     console.log("Register> ");
+    this.router.navigate(['/dashboard']);
 
   }
 
@@ -46,12 +47,6 @@ export class AuthComponent {
       localStorage.setItem('jwtToken', jwtDto.token);
       this.router.navigate(['/dashboard']);
     });
-  }
-
-  weather() {
-    this.authService.getWeather().subscribe((weatherData: any) => {
-      console.log(weatherData);
-    })
   }
 
   invoices() {

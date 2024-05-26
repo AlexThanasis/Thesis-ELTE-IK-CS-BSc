@@ -21,7 +21,6 @@ export class InvoiceListComponent implements OnInit {
   getInvoices() {
     this.invoiceService.getInvoices().subscribe((result) => {
       this.invoices = result;
-      console.log("inv: ", this.invoices);
     });
   }
 
@@ -30,6 +29,7 @@ export class InvoiceListComponent implements OnInit {
   }
 
   addNewInvoice() {
+    this.newInvoice.companyId
     this.invoiceService.createInvoice(this.newInvoice).subscribe((result) => {
       this.getInvoices();
     })

@@ -115,12 +115,9 @@
 
     <div>
         <ul class="invoice-list">
+            <li *ngIf="invoices.length === 0">Invoices list is empty at the moment</li>
             <li *ngFor="let invoice of invoices">
-                <app-invoice-list-detail [invoice]="invoice">
-                    //kis lista jojjon ide
-                    //kattintas kivalasztas
-                </app-invoice-list-detail>
-                <!-- {{invoice.customerName}} -->
+                <app-invoice-list-detail [invoice]="invoice"></app-invoice-list-detail>
             </li>
         </ul>
     </div>

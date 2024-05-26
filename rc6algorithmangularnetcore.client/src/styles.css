@@ -70,3 +70,11 @@ footer {
     display: flex;
     flex-direction: column;
 }
+.form-section {
+    min-width: 40%;    
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}

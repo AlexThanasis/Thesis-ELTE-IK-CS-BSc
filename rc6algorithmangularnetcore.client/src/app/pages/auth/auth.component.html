@@ -1,27 +1,29 @@
-
-
 <div class="content" role="main">
     <h2>Register</h2>
     Credentials
-    <div class="">name:<input type="text" [(ngModel)]="userRegisterDto.name"></div>
-    <div class="">email:<input type="text" [(ngModel)]="userRegisterDto.email"></div>
-    <div class="">password:<input type="text" [(ngModel)]="userRegisterDto.password"></div>
-    Company informations
-    <div class="">name:<input type="text" [(ngModel)]="companyRegisterDto.name"></div>
-    <div class="">company Id:<input type="text" [(ngModel)]="companyRegisterDto.companyId"></div>
-    <div class="">tax number:<input type="text" [(ngModel)]="companyRegisterDto.taxNumber"></div>v>
-    <div class="">address:<input type="text" [(ngModel)]="companyRegisterDto.address"></div>
-    <button (click)="register(userRegisterDto, companyRegisterDto);">Register</button>
+    <div class="form-section">
+        <div class="row">name:<input type="text" [(ngModel)]="userRegisterDto.name"></div>
+        <div class="row">email:<input type="text" [(ngModel)]="userRegisterDto.email"></div>
+        <div class="row">password:<input type="text" [(ngModel)]="userRegisterDto.password"></div>
+        <br />
+        Company informations
+        <div class="row">name:<input type="text" [(ngModel)]="companyRegisterDto.name"></div>
+        <div class="row">company Id:<input type="text" [(ngModel)]="companyRegisterDto.companyId"></div>
+        <div class="row">tax number:<input type="text" [(ngModel)]="companyRegisterDto.taxNumber"></div>
+        <div class="row">address:<input type="text" [(ngModel)]="companyRegisterDto.address"></div>
+        <button (click)="register(userRegisterDto, companyRegisterDto);">Register</button>
+    </div>
 
     <hr />
-
-    <h2>Login</h2>
-    <div class="">email:<input type="text" [(ngModel)]="loginDto.email"></div>
-    <div class="">password:<input type="text" [(ngModel)]="loginDto.password"></div>
-    <button (click)="login(loginDto)">Login</button>
+    <div class="form-section">
+        <h2>Login</h2>
+        <div class="row">email:<input type="text" [(ngModel)]="loginDto.email"></div>
+        <div class="row">password:<input type="text" [(ngModel)]="loginDto.password"></div>
+        <button (click)="login(loginDto)">Login</button>
+    </div>
 
     <hr />
-<!-- 
+    <!-- 
     <button (click)="weather()">Get Weather</button>
     <button (click)="invoices()">Get Invoices</button> -->
 

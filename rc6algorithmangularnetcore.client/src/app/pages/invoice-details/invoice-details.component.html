@@ -1,44 +1,56 @@
 <div class="container">
-    <div class="label">
-        <span class="label-title">Id: </span>
-        <span class="label-value">
-            {{invoice.id}}
-        </span>
-    </div>
-    <div class="label">
-        <span class="label-title">Vevo neve: </span>
-        <span class="label-value">
-            {{invoice.customerName}}
-        </span>
-    </div>
-    <div class="label">
-        <span class="label-title">Vevo adoszama: </span>
-        <span class="label-value">
-            {{invoice.customerTaxNumber}}
-        </span>
-    </div>
-    <div class="label">
-        <span class="label-title">Ertek: </span>
-        <span class="label-value">
-            {{invoice.grossValue}} {{invoice.currency}}
-        </span>
-    </div>
-    <div class="label">
-        <span class="label-title">Kiallitas datuma: </span>
-        <span class="label-value">
-            {{invoice.issueDate}}
-        </span>
-    </div>
-    <div class="label">
-        <span class="label-title">Teljesites datuma: </span>
-        <span class="label-value">
-            {{invoice.fulfilmentDate}}
-        </span>
-    </div>
-    <div class="label">
-        <span class="label-title">Vevo cime: </span>
-        <span class="label-value">
-            {{invoice.customerAddress}}
-        </span>
+    <div class="form-section">
+        <div class="row">
+            <span class="label-title">Invoice id:</span>
+            <span class="label-value">{{invoice.id}}</span>
+        </div>
+        <div class="row">
+            <span class="label-title">Invoice number:</span>
+            <span class="label-value">{{invoice.invoiceNumber}}</span>
+        </div>
+        <div class="row">
+            <span class="label-title">Issuer company identifier:</span>
+            <span class="label-value">{{invoice.companyId}}</span>
+        </div>
+        <div class="row">
+            <span class="label-title">Customer name:</span>
+            <span class="label-value">{{invoice.customerName}}</span>
+        </div>
+        <div class="row">
+            <span class="label-title">Customer address:</span>
+            <span class="label-value">{{invoice.customerAddress}}</span>
+        </div>
+        <div class="row">
+            <span class="label-title">Customer tax number:</span>
+            <span class="label-value">{{invoice.customerTaxNumber}}</span>
+        </div>
+        <div class="row">
+            <span class="label-title">Issue date:</span>
+            <span class="label-value">{{invoice.issueDate}}</span>
+        </div>
+        <div class="row">
+            <span class="label-title">Fulfilment date:</span>
+            <span class="label-value">{{invoice.fulfilmentDate}}</span>
+        </div>
+        <div class="row">
+            <span class="label-title">Pazment date:</span>
+            <span class="label-value">{{invoice.paymentDate}}</span>
+        </div>
+        <div class="row">
+            <span class="label-title">Net value:</span>
+            <span class="label-value">{{invoice.netValue}}</span>
+        </div>
+        <div class="row">
+            <span class="label-title">Value added tax:</span>
+            <span class="label-value">{{invoice.vat}}</span>
+        </div>
+        <div class="row">
+            <span class="label-title">Gross value:</span>
+            <span class="label-value">{{invoice.grossValue}}</span>
+        </div>
+        <div class="row">
+            <span class="label-title">Currency:</span>
+            <span class="label-value">{{invoice.currency}}</span>
+        </div>
     </div>
 </div>

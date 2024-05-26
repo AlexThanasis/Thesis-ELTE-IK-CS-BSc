@@ -8,7 +8,9 @@ import { Observable } from "rxjs";
   providedIn: 'root'
 })
 export class CompanyService {
-  companyUrl = "Company"
+  companyUrl = "Company";
+  company?: Company;
+
   constructor(private httpClient: HttpClient) { }
 
   public addCompany(company: Company): Observable<any> {

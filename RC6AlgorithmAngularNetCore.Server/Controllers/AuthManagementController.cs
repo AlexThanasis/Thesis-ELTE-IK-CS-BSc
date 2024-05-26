@@ -122,11 +122,10 @@ namespace AngularAndDotNetCoreCRUD.Server.Controllers
             return BadRequest("Invalid request payload");
         }
 
-        [HttpGet("me")]
+        [HttpGet("Me")]
         [Authorize]
         public IActionResult GetCurrentUser()
         {
-            Console.WriteLine("me endpoint");
             // Get the user id from the JWT token
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             Console.WriteLine("me userId: " + userId);
