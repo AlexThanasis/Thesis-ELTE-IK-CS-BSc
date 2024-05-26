@@ -40,24 +40,8 @@ public class InvoiceController : ControllerBase
             return NotFound("Invoice not found.");
         // return BadRequest("Invoice not found.");
 
-
-        Console.WriteLine(invoice.CustomerTaxNumber);
-        Console.WriteLine(RC6.DecryptFromDB(invoice.CustomerTaxNumber, 128, "secretKeyForThesis"));
-
-        Console.WriteLine(invoice.CustomerAddress);
-        Console.WriteLine(RC6.DecryptFromDB(invoice.CustomerAddress, 128, "secretKeyForThesis"));
-
         invoice.CustomerTaxNumber = RC6.DecryptFromDB(invoice.CustomerTaxNumber, 128, "secretKeyForThesis");
         invoice.CustomerAddress = RC6.DecryptFromDB(invoice.CustomerAddress, 128, "secretKeyForThesis");
-
-        // Console.WriteLine(invoice.CustomerTaxNumber);
-        // string cipher = RC6.EncryptForDB(invoice.CustomerTaxNumber, 128, "secretKeyForThesis");
-        // Console.WriteLine(cipher);
-        //string text = RC6.DecryptFromDB(cipher, 128, "secretKeyForThesis");
-        //Console.WriteLine(text);
-
-        // invoice.CustomerTaxNumber = Encoding.ASCII.GetString(RC6.EncodeRc6(RC6.GenerateKey(128, Encoding.ASCII.GetBytes("secretKeyForThesis")), plainCustomerTaxNumber));
-        // invoice.CustomerAddress = Encoding.ASCII.GetString(RC6.EncodeRc6(RC6.GenerateKey(128, Encoding.ASCII.GetBytes("secretKeyForThesis")), invoice.CustomerAddress));
 
         return Ok(invoice);
     }
@@ -65,12 +49,8 @@ public class InvoiceController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<List<Invoice>>> AddInvoice([FromBody] Invoice invoice)
     {
-        var plainCustomerTaxNumber = invoice.CustomerTaxNumber;
-        // invoice.CustomerTaxNumber = Encoding.ASCII.GetString(RC6.EncodeRc6(RC6.GenerateKey(128, Encoding.ASCII.GetBytes("secretKeyForThesis")), plainCustomerTaxNumber));
-        // invoice.CustomerAddress = Encoding.ASCII.GetString(RC6.EncodeRc6(RC6.GenerateKey(128, Encoding.ASCII.GetBytes("secretKeyForThesis")), invoice.CustomerAddress));
-       // invoice.CustomerTaxNumber = RC6.EncryptForDB(invoice.CustomerTaxNumber, 128, "secretKeyForThesis");
-       // invoice.CustomerAddress = RC6.EncryptForDB(invoice.CustomerAddress, 128, "secretKeyForThesis")
-
+        invoice.CustomerTaxNumber = RC6.EncryptForDB(invoice.CustomerTaxNumber, 128, "secretKeyForThesis");
+        invoice.CustomerAddress = RC6.EncryptForDB(invoice.CustomerAddress, 128, "secretKeyForThesis");
 
         _context.Invoices.Add(invoice);
         await _context.SaveChangesAsync();

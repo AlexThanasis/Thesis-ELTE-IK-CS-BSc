@@ -39,7 +39,7 @@ namespace RC6AlgorithmAngularNetCore.Server.Cipher
             //Ha a főkulcs nincs előre meghatározva, használjunk véletlen kulcsgenerátort
             if (keyCheck == null)
             {
-                AesCryptoServiceProvider aesCrypto = new AesCryptoServiceProvider //nem túl jó ötlet magunknak generálni a kulcsokat
+                AesCryptoServiceProvider aesCrypto = new AesCryptoServiceProvider //nem túl jó ötlet magunknak generálni a kulcsokat, kiváló implementáció a .Net AES könyvtára, de már nem a legújabb
                 {
                     //A konstruktorban meghatározott kulcsméret beállítása
                     KeySize = Long
@@ -48,9 +48,6 @@ namespace RC6AlgorithmAngularNetCore.Server.Cipher
                 MainKey = aesCrypto.Key;
             }
             else MainKey = keyCheck;
-
-            //Console.WriteLine(MainKey.Length);
-            //Console.WriteLine(Encoding.ASCII.GetString(MainKey));
 
             int c = 0;
             int i, j;
@@ -192,7 +189,7 @@ namespace RC6AlgorithmAngularNetCore.Server.Cipher
 
         public static string DecryptFromDB(string ciphertext, int keySize = 128, string key = "secretKeyForThesis")
         {
-            return Encoding.UTF8.GetString(RC6.DecodeRc6(RC6.GenerateKey(keySize, Encoding.UTF8.GetBytes(key)), Convert.FromBase64String(ciphertext)));
+            return Encoding.UTF8.GetString(RC6.DecodeRc6(RC6.GenerateKey(keySize, Encoding.UTF8.GetBytes(key)), Convert.FromBase64String(ciphertext))).TrimEnd('\0');
         }
     }
 }

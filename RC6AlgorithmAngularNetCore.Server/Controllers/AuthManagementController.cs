@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -119,5 +120,39 @@ namespace AngularAndDotNetCoreCRUD.Server.Controllers
             return BadRequest("Invalid request payload");
         }
 
+        // [HttpGet("GetMe")]
+        // //[Authorize]
+        // public IActionResult GetMe()
+        // {
+        //     Console.WriteLine("GETME1");
+        //     var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+        //     Console.WriteLine("GETME2" + claimsIdentity);
+
+        //     if (claimsIdentity != null)
+        //     {
+        //         var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Sub);
+        //         var usernameClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.UniqueName);
+        //         Console.WriteLine("GETME3A" + userIdClaim);
+        //         Console.WriteLine("GETME3B" + usernameClaim);
+        //         Console.WriteLine("GETME3C" + claimsIdentity.Claims.ToList().Count);
+
+        //         foreach (var item in claimsIdentity.Claims.ToList())
+        //         {
+        //             Console.WriteLine(item.ToString());
+        //         }
+
+        //         if (userIdClaim != null && usernameClaim != null)
+        //         {
+        //             return Ok(new
+        //             {
+        //                 UserId = userIdClaim.Value,
+        //                 Username = usernameClaim.Value
+        //             });
+        //         }
+        //     }
+        //     Console.WriteLine("GETME0");
+
+        //     return Unauthorized();
+        // }
     }
 }
