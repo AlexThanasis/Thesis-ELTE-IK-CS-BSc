@@ -2,11 +2,11 @@
     <h2 class="title">Profile</h2>
     <div *ngIf="!userData" class="label">Something wrong with user data</div>
     <div *ngIf="userData" class="form-section">
-        <div class="row">Company email: {{ userData.companyEmail }}</div>
-        <div class="row">Company address: {{ userData.address }}</div>
-        <div class="row">Company Official Name: {{ userData.name }}</div>
-        <div class="row">Our taxnumber: {{ userData.taxNumber }}</div>
-        <div class="row">Id: {{ userData.companyId }}</div>
+        <div class="row">Company email: <span>{{ userData.companyEmail }}</span></div>
+        <div class="row">Company address: <span>{{ userData.address }}</span></div>
+        <div class="row">Company Official Name: <span>{{ userData.name }}</span></div>
+        <div class="row">Our taxnumber: <span>{{ userData.taxNumber }}</span></div>
+        <div class="row">Id: <span>{{ userData.companyId }}</span></div>
     </div>
     <div>
         <button (click)="logout()">Logout</button>

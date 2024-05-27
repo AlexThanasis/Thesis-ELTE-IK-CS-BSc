@@ -1,7 +1,7 @@
 <div class="container">
     <div class="article">
         <div class="article title">
-            <h1>RC6 bemutatása</h1>
+            <h1>RC6 Cipher</h1>
             <div class="container">
                 <div class="input-section">
                     <div class="form-section">
@@ -15,7 +15,7 @@
                             <span class="label">
                                 Select key size (in bits):
                             </span>
-                            <select #keySize (change)="setKeySize(keySize.value)">
+                            <select #keySizeSelector (change)="setKeySize(keySizeSelector.value)">
                                 <option default value="128">128</option>
                                 <option value="16">16</option>
                                 <option value="24">24</option>
@@ -27,6 +27,19 @@
                                 Plain text to be ciphered:
                             </span>
                             <input type="text" [(ngModel)]="plainText">
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        Click to encrypt the plain text and then click to decrypt and retrieve the original message
+                        <div class="buttons">
+                            <button [disabled]="plainText.length === 0 || key.length === 0" (click)="encrypt(plainText, keySize, key)">Encrypt</button>
+                            <button [disabled]="cipherText.length === 0 || key.length === 0" (click)="decrypt(cipherText, keySize, key)">Decrypt</button>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <div class="buttons">
+                            <span *ngIf="cipherText.length > 0">{{cipherText}}</span>
+                            <span *ngIf="decipheredText.length > 0">{{decipheredText}}</span>
                         </div>
                     </div>
                 </div>

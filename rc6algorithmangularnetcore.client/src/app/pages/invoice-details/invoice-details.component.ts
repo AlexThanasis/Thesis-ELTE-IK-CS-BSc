@@ -17,6 +17,7 @@ export class InvoiceDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getInvoiceDetails();
   }
 
   getInvoiceDetails() {

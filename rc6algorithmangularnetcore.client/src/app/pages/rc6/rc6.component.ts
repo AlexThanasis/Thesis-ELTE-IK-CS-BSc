@@ -8,9 +8,9 @@ import { Rc6Service } from 'src/app/services/rc6.service';
   styleUrls: ['./rc6.component.css']
 })
 export class Rc6Component {
-  key = '';
+  key = 'secretKeyForThesis';
   keySize: 16 | 24 | 32 | 128 = 128;
-  plainText = '';
+  plainText = 'Hello World';
   cipherText = '';
   decipheredText = '';
 

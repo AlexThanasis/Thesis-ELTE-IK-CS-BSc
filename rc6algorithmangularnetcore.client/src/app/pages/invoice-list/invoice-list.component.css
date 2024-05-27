@@ -22,10 +22,3 @@ ul {
     justify-content: center;
     gap: 15px;
 }
-
-.buttons {
-    margin: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
