@@ -126,10 +126,7 @@ namespace AngularAndDotNetCoreCRUD.Server.Controllers
         [Authorize]
         public IActionResult GetCurrentUser()
         {
-            // Get the user id from the JWT token
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            Console.WriteLine("me userId: " + userId);
-            Console.WriteLine("ClaimTypes.NameIdentifier: " + User.FindFirst(ClaimTypes.NameIdentifier) + User.FindFirst(ClaimTypes.NameIdentifier)?.Issuer);
 
             if (userId == null)
             {
@@ -137,8 +134,6 @@ namespace AngularAndDotNetCoreCRUD.Server.Controllers
             }
 
             var user = _userManager.FindByEmailAsync(userId);
-            
-            Console.WriteLine("me user: " + user);
 
             return Ok(user);
         }
