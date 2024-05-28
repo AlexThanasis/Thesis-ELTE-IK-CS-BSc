@@ -14,6 +14,8 @@ ul {
 .adding-new-invoice-label {
     display: flex;
     margin: 10px 0;
+    font-weight: 500;
+    font-size: 1.5rem;
 }
 
 .invoice-list {

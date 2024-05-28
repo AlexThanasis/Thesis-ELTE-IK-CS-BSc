@@ -6,10 +6,16 @@
             <button type="button" (click)="toggleIsAddNewOpen()">Add new invoice</button>
         </div>
         <div *ngIf="isAddNewOpen" class="adding-new-invoice-form">
-            adding
+            adding new custom invoice
             <span class="adding-new-invoice-label">
                 Invoice data:
             </span>
+            <div class="row">
+                <span class="label">
+                    Issuer Company Id:
+                </span>
+                <span>{{newInvoice.companyId}}</span>
+            </div>
             <div class="row">
                 <span class="label">
                     Invoice Number:
@@ -50,7 +56,7 @@
                 <span class="label">
                     Gross value:
                 </span>
-                <input type="number" [(ngModel)]="newInvoice.grossValue">
+                <span>{{countGrossValue()}}</span>
             </div>
             <div class="row">
                 <span class="label">
@@ -79,37 +85,15 @@
                 </span>
                 <input type="text" [(ngModel)]="newInvoice.customerTaxNumber">
             </div>
-            <!-- <span class="adding-new-invoice-label">
-                Issuer data:
-            </span>
-            <div class="row">
-                <span class="label">
-                    Company ID:
-                </span>
-                <input type="number" [(ngModel)]="newInvoice.companyId">
-            </div>
-            <div class="row">
-                <span class="label">
-                    Name:
-                </span>
-                <input type="text" [(ngModel)]="newInvoice.issuerName">
-            </div>
-            <div class="row">
-                <span class="label">
-                    Address:
-                </span>
-                <input type="text" [(ngModel)]="newInvoice.issuerAddress">
-            </div>
-            <div class="row">
-                <span class="label">
-                    Tax number:
-                </span>
-                <input type="text" [(ngModel)]="newInvoice.issuerTaxNumber">
-            </div> -->
             <div class="buttons">
                 <button type="button" (click)="toggleIsAddNewOpen()">Cancel</button>
-                <button type="button" (click)="toggleIsAddNewOpen(); addNewInvoice();">Add new custom invoice</button>
-                <button type="button" (click)="toggleIsAddNewOpen(); addNewRandomInvoice();">Add new random invoice</button>
+                <button [disabled]="!isNewInvoiceOk()" type="button"
+                    (click)="toggleIsAddNewOpen(); addNewInvoice();">Add new custom invoice</button>
+                <button type="button" (click)="toggleIsAddNewOpen(); addNewRandomInvoice();">Add new random
+                    invoice</button>
+            </div>
+            <div *ngIf="isAddInvoiceError" class="error-text">
+                A problem have occured with adding new invoice
             </div>
         </div>
     </div>
@@ -121,5 +105,8 @@
                 <app-invoice-list-detail [invoice]="invoice"></app-invoice-list-detail>
             </li>
         </ul>
+        <div *ngIf="isGetInvoicesError" class="error-text">
+            Could not load invoices
+        </div>
     </div>
 </div>

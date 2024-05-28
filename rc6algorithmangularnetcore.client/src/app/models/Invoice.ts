@@ -9,7 +9,7 @@ export interface Invoice {
     paymentDate?: string;
     fulfilmentDate?: string;
     netValue?: number;
-    vat?: number;
+    vat?: 8 | 16 | 27;
     grossValue?: number;
     currency?: string;
 }

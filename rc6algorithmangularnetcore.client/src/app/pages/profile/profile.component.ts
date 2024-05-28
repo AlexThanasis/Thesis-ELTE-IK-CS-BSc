@@ -1,38 +1,59 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Company } from 'src/app/models/company';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { CompanyService } from 'src/app/services/company.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   userData?: any;
+  company?: Company;
+
+  onGetInfoSub: Subscription = new Subscription;
 
   constructor(
     private authService: AuthenticationService,
-    private companyService: CompanyService,
-    private router: Router
   ) { }
 
-  ngOnInit(): void {
-    if (this.companyService.company) {
-      this.userData = this.companyService.company;
-    } else {
-      this.userData = JSON.parse(localStorage.getItem("company") ?? "");
+  ngOnInit() {
+    this.onGetInfoSub = this.authService.onGetInfo$.subscribe($event => {
+      this.addUserInfo($event);
+    })
+    const company = localStorage.getItem("company");
+    const user = localStorage.getItem("user");
+    if (company) {
+      this.company = JSON.parse(company);
     }
-    console.log("Profile: ", this.companyService.company);
+    if (user) {
+      this.userData = JSON.parse(user);
+    }
+  }
 
+  ngOnDestroy(): void {
+    if (this.onGetInfoSub) {
+      this.onGetInfoSub.unsubscribe();
+    }
+  }
+
+  addUserInfo(event: any) {
+    if (event.companyId) {
+      this.company = event;
+      localStorage.setItem("company", JSON.stringify(this.company));
+    } else {
+      this.userData = event;
+      localStorage.setItem("user", JSON.stringify(this.company));
+    }
   }
 
   logout(): void {
     localStorage.removeItem("jwtToken");
-    localStorage.removeItem("email");
+    localStorage.removeItem("user");
     localStorage.removeItem("company");
-    this.router.navigate(['/welcome']);
     this.authService.logout();
+    window.location.href = "/welcome";
   }
 }

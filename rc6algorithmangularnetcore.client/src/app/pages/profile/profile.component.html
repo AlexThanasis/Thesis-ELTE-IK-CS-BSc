@@ -1,12 +1,12 @@
 <div class="container">
     <h2 class="title">Profile</h2>
-    <div *ngIf="!userData" class="label">Something wrong with user data</div>
-    <div *ngIf="userData" class="form-section">
-        <div class="row">Company email: <span>{{ userData.companyEmail }}</span></div>
-        <div class="row">Company address: <span>{{ userData.address }}</span></div>
-        <div class="row">Company Official Name: <span>{{ userData.name }}</span></div>
-        <div class="row">Our taxnumber: <span>{{ userData.taxNumber }}</span></div>
-        <div class="row">Id: <span>{{ userData.companyId }}</span></div>
+    <div *ngIf="!company" class="label">Something wrong with user data</div>
+    <div *ngIf="company" class="form-section">
+        <div class="row">Company email: <span>{{ company.email }}</span></div>
+        <div class="row">Company address: <span>{{ company.address }}</span></div>
+        <div class="row">Company Official Name: <span>{{ company.name }}</span></div>
+        <div class="row">Our taxnumber: <span>{{ company.taxNumber }}</span></div>
+        <div class="row">Id: <span>{{ company.companyId }}</span></div>
     </div>
     <div>
         <button (click)="logout()">Logout</button>

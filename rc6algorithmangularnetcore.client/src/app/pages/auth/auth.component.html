@@ -7,6 +7,9 @@
             <div class="row">name:<input type="text" [(ngModel)]="userRegisterDto.name"></div>
             <div class="row">email:<input type="text" [(ngModel)]="userRegisterDto.email"></div>
             <div class="row">password:<input type="text" [(ngModel)]="userRegisterDto.password"></div>
+            <div *ngIf="isRegisterError" class="error-text">
+                Please register with correct email and password
+            </div>
             <br />
             Company informations
             <div class="row">name:<input type="text" [(ngModel)]="companyRegisterDto.name"></div>
@@ -15,6 +18,9 @@
             <div class="row">address:<input type="text" [(ngModel)]="companyRegisterDto.address"></div>
             <div class="">
                 <button (click)="register(userRegisterDto, companyRegisterDto);">Register</button>
+            </div>
+            <div *ngIf="isCompanyError" class="error-text">
+                Please register with correct email and password
             </div>
         </div>
 
@@ -25,6 +31,9 @@
             <div class="row">password:<input type="text" [(ngModel)]="loginDto.password"></div>
             <div class="">
                 <button (click)="login(loginDto)">Login</button>
+            </div>
+            <div *ngIf="isUserError" class="error-text">
+                Please login with the correct email and password
             </div>
         </div>
 

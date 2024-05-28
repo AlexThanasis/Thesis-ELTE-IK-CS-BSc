@@ -14,47 +14,81 @@ import { CompanyService } from 'src/app/services/company.service';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent {
-  @Output() company = new EventEmitter<Company>();
   loginDto = new Login();
   userRegisterDto = new Register();
   companyRegisterDto = new Company();
   jwtDto = new JwtAuth();
+  isRegisterError = false;
+  isUserError = false;
+  isCompanyError = false;
 
   constructor(
-    // private http: HttpClient,
     private authService: AuthenticationService,
-    private invoiceService: InvoicesService,
     private companyService: CompanyService,
     private router: Router,
   ) { }
 
-  ngOnInit() {
-    // this.getForecasts();
-  }
+  ngOnInit(): void { }
 
-  register(registerDto: Register, companyRegisterDto: Company) {
+  register(registerDto: Register, companyRegisterDto: Company): void {
     companyRegisterDto.email = registerDto.email;
-    this.authService.register(registerDto).subscribe();
+    this.authService.register(registerDto).subscribe(
+      (jwtDto) => {
+        localStorage.setItem('jwtToken', jwtDto.token);
+        this.authService.getMe().subscribe(
+          (user) => {
+            this.authService.onGetInfo$.next(user);
+            if (user.result.email) {
+              this.companyService.getCompany(user.result.email).subscribe(
+                (company) => {
+                  this.authService.onGetInfo$.next(company);
+                  this.router.navigate(['/invoices']);
+                }, (error) => {
+                  this.isCompanyError = true;
+                  console.error(error);
+                }
+              )
+            }
+          }, (error) => {
+            this.isUserError = true;
+            console.error(error);
+          }
+        );
+      }, (error) => {
+        this.isUserError = true;
+        console.error(error);
+      }
+    );
     this.companyService.addCompany(companyRegisterDto).subscribe();
-    console.log("Register> ");
     this.router.navigate(['/invoices']);
   }
 
-  login(loginDto: Login) {
-    console.log("LOGIN> ", loginDto);
-
-    this.authService.login(loginDto).subscribe((jwtDto) => {
-      localStorage.setItem('jwtToken', jwtDto.token);
-      this.authService.getMe().subscribe((company) => {
-        this.company.emit(company);
-        this.router.navigate(['/invoices']);
+  login(loginDto: Login): void {
+    this.authService.login(loginDto).subscribe(
+      (jwtDto) => {
+        localStorage.setItem('jwtToken', jwtDto.token);
+        this.authService.getMe().subscribe(
+          (user) => {
+            this.authService.onGetInfo$.next(user);
+            if (user.result.email) {
+              this.companyService.getCompany(user.result.email).subscribe(
+                (company) => {
+                  this.authService.onGetInfo$.next(company);
+                  this.router.navigate(['/invoices']);
+                }, (error) => {
+                  this.isCompanyError = true;
+                  console.error(error);
+                }
+              )
+            }
+          }, (error) => {
+            this.isUserError = true;
+            console.error(error);
+          }
+        );
+      }, (error) => {
+        this.isUserError = true;
+        console.error(error);
       });
-    });
-  }
-
-  invoices() {
-    this.invoiceService.getInvoices().subscribe((invoices: any) => {
-      console.log(invoices);
-    })
   }
 }

@@ -1,60 +1,58 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Login } from './models/login';
 import { Register } from './models/register';
 import { JwtAuth } from './models/jwtAuth';
 import { AuthenticationService } from './services/authentication.service';
-import { InvoicesService } from './services/invoices.service';
-import { CompanyService } from './services/company.service';
 import { Company } from './models/company';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  title = 'rc6algorithmangularnetcore';
+export class AppComponent implements OnInit, OnDestroy {
+  title = 'RC6 Algorithms with Angular and .NetCore';
   loginDto = new Login();
   registerDto = new Register();
   jwtDto = new JwtAuth();
   company?: Company;
+  userData?: any;
+
+  onGetInfoSub: Subscription = new Subscription;
 
   constructor(
     private authService: AuthenticationService,
-    private invoiceService: InvoicesService,
-    private companyService: CompanyService
   ) { }
 
   ngOnInit() {
-    this.authService.getMe().subscribe((data) => {
-      console.log("DATA: ", JSON.stringify(data.result.email));
-
-      if (data && data.result) {
-        localStorage.setItem("email", data.result.email);
-        this.companyService.getCompany(data.result.email).subscribe(company => {
-          this.companyService.company = company;
-          localStorage.setItem("company", JSON.stringify(company));
-        });
-      }
-    });
+    this.onGetInfoSub = this.authService.onGetInfo$.subscribe($event => {
+      this.addUserInfo($event);
+    })
+    const company = localStorage.getItem("company");
+    const user = localStorage.getItem("user");
+    if (company) {
+      this.company = JSON.parse(company);
+    }
+    if (user) {
+      this.userData = JSON.parse(user);
+    }
   }
 
-  // invoices() {
-  //   this.invoiceService.getInvoices().subscribe((invoices: any) => {
-  //     console.log(invoices);
-  //   })
-  // }
+  ngOnDestroy(): void {
+    if (this.onGetInfoSub) {
+      this.onGetInfoSub.unsubscribe();
+    }
+  }
 
-  // getForecasts() {
-  //   this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
-  //     (result) => {
-  //       this.forecasts = result;
-  //     },
-  //     (error) => {
-  //       console.error(error);
-  //     }
-  //   );
-  // }
-
+  addUserInfo(event: any) {
+    if (event.companyId) {
+      this.company = event;
+      localStorage.setItem("company", JSON.stringify(this.company));
+    } else {
+      this.userData = event;
+      localStorage.setItem("user", JSON.stringify(this.userData));
+    }
+  }
 }
