@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using System.Security.Cryptography;
 using System.Text;
-
 namespace RC6AlgorithmAngularNetCore.Server.Cipher
 {
     public class RC6
@@ -12,14 +11,14 @@ namespace RC6AlgorithmAngularNetCore.Server.Cipher
         private const uint Q32 = 0x9E3779B9;
         /*Kulcsgenerálás*/
         //Konstruktor kulcsgenerálással
-        public RC6(int keyKeyLength)
+        public RC6(int keyLength)
         {
-            GenerateKey(keyKeyLength, null);
+            GenerateKey(keyLength, null);
         }
         //Konstruktor tesztek futtatásához előre meghatározott kulccsal
-        public RC6(int keyKeyLength, byte[] key)
+        public RC6(int keyLength, byte[] key)
         {
-            GenerateKey(keyKeyLength, key);
+            GenerateKey(keyLength, key);
         }
         // Jobbra tolás veszteség nélkül
         private static uint RightShift(uint value, int shift)
@@ -142,7 +141,6 @@ namespace RC6AlgorithmAngularNetCore.Server.Cipher
             }
             return cipherText;
         }
-
         public static byte[] DecodeRc6(uint[] expandedKeyTable, byte[] cipherText)
         {
             uint A, B, C, D;
@@ -181,12 +179,10 @@ namespace RC6AlgorithmAngularNetCore.Server.Cipher
             }
             return plainText;
         }
-
         public static string EncryptForDB(string plaintext, int keySize = 128, string key = "secretKeyForThesis")
         {
             return Convert.ToBase64String(RC6.EncodeRc6(RC6.GenerateKey(keySize, Encoding.UTF8.GetBytes(key)), plaintext));
         }
-
         public static string DecryptFromDB(string ciphertext, int keySize = 128, string key = "secretKeyForThesis")
         {
             return Encoding.UTF8.GetString(RC6.DecodeRc6(RC6.GenerateKey(keySize, Encoding.UTF8.GetBytes(key)), Convert.FromBase64String(ciphertext))).TrimEnd('\0');

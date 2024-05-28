@@ -1,5 +1,13 @@
 .input-section {
     display: flex;
     flex-direction: column;
-    justify-content:flex-end;
+    justify-content: flex-end;
+}
+
+.cipher-display {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 1rem;
 }

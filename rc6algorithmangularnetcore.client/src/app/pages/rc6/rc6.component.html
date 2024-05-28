@@ -11,7 +11,7 @@
                             </span>
                             <input type="text" [(ngModel)]="key">
                         </div>
-                        <div *ngIf="key.length === (keySize / 16)" class="error-text">
+                        <div *ngIf="!isKeyBiggerThenSize()" class="error-text">
                             The key length must contain more than {{keySize / 16}} characters
                         </div>
                         <div class="row">
@@ -30,16 +30,19 @@
                             </span>
                             <input type="text" [(ngModel)]="plainText">
                         </div>
+                        <div *ngIf="plainText.length===0" class="error-text">
+                            Please provide a message!
+                        </div>
                     </div>
                     <div class="form-section">
                         Click to encrypt the plain text and then click to decrypt and retrieve the original message
                         <div class="buttons">
-                            <button [disabled]="plainText.length === 0 || key.length === 0" (click)="encrypt(plainText, keySize, key)">Encrypt</button>
-                            <button [disabled]="cipherText.length === 0 || key.length === 0" (click)="decrypt(cipherText, keySize, key)">Decrypt</button>
+                            <button [disabled]="plainText.length === 0 || !isKeyBiggerThenSize()" (click)="encrypt(plainText, keySize, key)">Encrypt</button>
+                            <button [disabled]="cipherText.length === 0 || !isKeyBiggerThenSize()" (click)="decrypt(cipherText, keySize, key)">Decrypt</button>
                         </div>
                     </div>
-                    <div class="form-section">
-                        <div class="buttons">
+                    <div *ngIf="cipherText.length > 0" class="form-section">
+                        <div class="buttons cipher-display">
                             <span *ngIf="cipherText.length > 0">{{cipherText}}</span>
                             <span *ngIf="decipheredText.length > 0">{{decipheredText}}</span>
                         </div>

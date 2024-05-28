@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Login } from '../../models/login';
 import { InvoicesService } from '../../services/invoices.service';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -14,6 +14,7 @@ import { CompanyService } from 'src/app/services/company.service';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent {
+  @Output() company = new EventEmitter<Company>();
   loginDto = new Login();
   userRegisterDto = new Register();
   companyRegisterDto = new Company();
@@ -44,7 +45,10 @@ export class AuthComponent {
 
     this.authService.login(loginDto).subscribe((jwtDto) => {
       localStorage.setItem('jwtToken', jwtDto.token);
-      this.router.navigate(['/invoices']);
+      this.authService.getMe().subscribe((company) => {
+        this.company.emit(company);
+        this.router.navigate(['/invoices']);
+      });
     });
   }
 

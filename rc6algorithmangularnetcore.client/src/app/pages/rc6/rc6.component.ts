@@ -27,4 +27,8 @@ export class Rc6Component {
   decrypt(cipherText: string, keySize: number, key: string) {
     this.rc6Service.decrypt({ cipherText, keySize, key }).subscribe(data => this.decipheredText = data);
   }
+
+  isKeyBiggerThenSize(): boolean {
+    return this.key.length >= (this.keySize / 8);
+  }
 }

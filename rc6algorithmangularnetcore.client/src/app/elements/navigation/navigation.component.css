@@ -2,6 +2,7 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 10px 30px;
+    max-height: 5vh;
     /* background-image: linear-gradient(transparent, white, transparent); */
     background-color: white;
 }
