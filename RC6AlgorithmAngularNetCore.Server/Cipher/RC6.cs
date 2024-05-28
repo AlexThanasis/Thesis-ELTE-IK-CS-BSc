@@ -12,14 +12,14 @@ namespace RC6AlgorithmAngularNetCore.Server.Cipher
         private const uint Q32 = 0x9E3779B9;
         /*Kulcsgenerálás*/
         //Konstruktor kulcsgenerálással
-        public RC6(int keyLong)
+        public RC6(int keyKeyLength)
         {
-            GenerateKey(keyLong, null);
+            GenerateKey(keyKeyLength, null);
         }
         //Konstruktor tesztek futtatásához előre meghatározott kulccsal
-        public RC6(int keyLong, byte[] key)
+        public RC6(int keyKeyLength, byte[] key)
         {
-            GenerateKey(keyLong, key);
+            GenerateKey(keyKeyLength, key);
         }
         // Jobbra tolás veszteség nélkül
         private static uint RightShift(uint value, int shift)
@@ -31,28 +31,28 @@ namespace RC6AlgorithmAngularNetCore.Server.Cipher
         {
             return (value << shift) | (value >> (W - shift));
         }
-        //Főkulcs és körkulcsok generálása
-        public static uint[] GenerateKey(int Long, byte[] keyCheck)
+        //Főkulcs és körkulcsok generálása, lehetséges kulcsméretek: 128, 192, 256
+        public static uint[] GenerateKey(int KeyLength, byte[] InitKeyByte)
         {
-            uint[] RoundKey = new uint[2 * R + 4];
+            uint[] KeyTable = new uint[2 * R + 4];
             byte[] MainKey;
             //Ha a főkulcs nincs előre meghatározva, használjunk véletlen kulcsgenerátort
-            if (keyCheck == null)
+            if (InitKeyByte == null)
             {
                 AesCryptoServiceProvider aesCrypto = new AesCryptoServiceProvider //nem túl jó ötlet magunknak generálni a kulcsokat, kiváló implementáció a .Net AES könyvtára, de már nem a legújabb
                 {
-                    //A konstruktorban meghatározott kulcsméret beállítása
-                    KeySize = Long
+                    //A paraméterben (vagy konstruktorban) meghatározott kulcsméret beállítása
+                    KeySize = KeyLength
                 };
                 aesCrypto.GenerateKey();
                 MainKey = aesCrypto.Key;
             }
-            else MainKey = keyCheck;
+            else MainKey = InitKeyByte;
 
             int c = 0;
             int i, j;
             //A kulcs méretétől függően kiválasztjuk, hány blokkra osztjuk a főkulcsot
-            switch (Long)
+            switch (KeyLength)
             {
                 case 128:// a kulcs hossza
                     c = 4; // szavak száma a kulcsban
@@ -70,26 +70,26 @@ namespace RC6AlgorithmAngularNetCore.Server.Cipher
                 L[i] = BitConverter.ToUInt32(MainKey, i * 4); // a kulcs szavakra bontása
             }
             //A körkulcsok generálása a dokumentációnak megfelelően
-            RoundKey[0] = P32;
+            KeyTable[0] = P32;
             for (i = 1; i < 2 * R + 4; i++)
-                RoundKey[i] = RoundKey[i - 1] + Q32; // állandó hozzáadása a körkulcshoz
+                KeyTable[i] = KeyTable[i - 1] + Q32; // állandó hozzáadása a körkulcshoz
             uint A, B; // regiszterek
             A = B = 0;
             i = j = 0;
             int V = 3 * Math.Max(c, 2 * R + 4);  // a körök vagy a kulcsszavak számának maximuma
             for (int s = 1; s <= V; s++)
             {
-                A = RoundKey[i] = LeftShift((RoundKey[i] + A + B), 3); // balra tolás 3-mal
+                A = KeyTable[i] = LeftShift((KeyTable[i] + A + B), 3); // balra tolás 3-mal
                 B = L[j] = LeftShift((L[j] + A + B), (int)(A + B)); // balra tolás a+b értékkel
                 i = (i + 1) % (2 * R + 4);
                 j = (j + 1) % c;
             }
-            return RoundKey;
+            return KeyTable;
         }
-        private static byte[] ToArrayBytes(uint[] uints, int Long)
+        private static byte[] ToArrayBytes(uint[] uints, int KeyLength)
         {
-            byte[] arrayBytes = new byte[Long * 4];
-            for (int i = 0; i < Long; i++)
+            byte[] arrayBytes = new byte[KeyLength * 4];
+            for (int i = 0; i < KeyLength; i++)
             {
                 byte[] temp = BitConverter.GetBytes(uints[i]);
                 temp.CopyTo(arrayBytes, i * 4);

@@ -75,5 +75,28 @@ namespace TestRC6Algorithm
 
             Assert.Equal(expectedDecodedText, decodedtext);
         }
+
+        [Fact]
+        public void EncryptingAndDecrypting_with128Key_Test1()
+        {
+            var originalMessage = "Hello World";
+            var keySize = 128;
+            var secretKey = "secretKeyForThesis";
+            var decodedtext = RC6.DecryptFromDB(RC6.EncryptForDB(originalMessage, keySize, secretKey), keySize, secretKey);
+
+            Assert.Equal(decodedtext, originalMessage);
+        }
+
+        [Fact]
+        public void EncryptingAndDecrypting_with256Key_Test1()
+        {
+
+            var originalMessage = "Hello World";
+            var keySize = 256;
+            var secretKey = "secretKeyForThesissecretKeyForTh";
+            var decodedtext = RC6.DecryptFromDB(RC6.EncryptForDB(originalMessage, keySize, secretKey), keySize, secretKey);
+
+            Assert.Equal(decodedtext, originalMessage);
+        }
     }
 }

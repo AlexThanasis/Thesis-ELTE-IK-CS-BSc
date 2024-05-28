@@ -9,7 +9,7 @@ import { Rc6Service } from 'src/app/services/rc6.service';
 })
 export class Rc6Component {
   key = 'secretKeyForThesis';
-  keySize: 16 | 24 | 32 | 128 = 128;
+  keySize: 128 | 192 | 256 = 128;
   plainText = 'Hello World';
   cipherText = '';
   decipheredText = '';
@@ -17,7 +17,7 @@ export class Rc6Component {
   constructor(private rc6Service: Rc6Service) { }
 
   setKeySize(keySize: string) {
-    this.keySize = +keySize as 16 | 24 | 32 | 128;
+    this.keySize = +keySize as 128 | 192 | 256;
   }
 
   encrypt(plainText: string, keySize: number, key: string) {

@@ -11,15 +11,17 @@
                             </span>
                             <input type="text" [(ngModel)]="key">
                         </div>
+                        <div *ngIf="key.length === (keySize / 16)" class="error-text">
+                            The key length must contain more than {{keySize / 16}} characters
+                        </div>
                         <div class="row">
                             <span class="label">
                                 Select key size (in bits):
                             </span>
                             <select #keySizeSelector (change)="setKeySize(keySizeSelector.value)">
                                 <option default value="128">128</option>
-                                <option value="16">16</option>
-                                <option value="24">24</option>
-                                <option value="32">32</option>
+                                <option value="192">192</option>
+                                <option value="256">256</option>
                             </select>
                         </div>
                         <div class="row">

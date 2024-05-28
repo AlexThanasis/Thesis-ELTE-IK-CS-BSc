@@ -53,9 +53,11 @@ export class InvoiceListComponent implements OnInit {
     this.newInvoice.fulfilmentDate = "2024-06-" + Math.floor(Math.random() * 30);
     this.newInvoice.paymentDate = "2024-06-" + Math.floor(Math.random() * 30);
     
-    this.invoiceService.createInvoice(this.newInvoice).subscribe((result) => {
-      this.getInvoices();
-    })
+    console.log("newInv random: ", this.newInvoice);
+    
+    // this.invoiceService.createInvoice(this.newInvoice).subscribe((result) => {
+    //   this.getInvoices();
+    // })
   }
 
   deleteInvoice(id: number) {
