@@ -24,9 +24,7 @@ export class AuthenticationService {
     return this.httpClient.post<JwtAuth>(`${environment.apiUrl}/${this.loginUrl}`, user);
   }
 
-  public logout(): void {
-    console.log("LOG OUT");
-  }
+  public logout(): void { }
 
   public getMe(): Observable<any> {
     return this.httpClient.get<any>(`${environment.apiUrl}/${this.getMeUrl}`);

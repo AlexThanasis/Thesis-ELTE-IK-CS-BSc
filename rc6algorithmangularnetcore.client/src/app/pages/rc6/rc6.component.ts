@@ -18,7 +18,6 @@ export class Rc6Component {
 
   setKeySize(keySize: string) {
     this.keySize = +keySize as 16 | 24 | 32 | 128;
-    console.log("key", this.keySize);
   }
 
   encrypt(plainText: string, keySize: number, key: string) {
