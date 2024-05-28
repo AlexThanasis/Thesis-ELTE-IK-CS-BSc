@@ -6,13 +6,7 @@ import { JwtAuth } from './models/jwtAuth';
 import { AuthenticationService } from './services/authentication.service';
 import { InvoicesService } from './services/invoices.service';
 import { CompanyService } from './services/company.service';
-
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
+import { Company } from './models/company';
 
 @Component({
   selector: 'app-root',
@@ -20,11 +14,11 @@ interface WeatherForecast {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  public forecasts: WeatherForecast[] = [];
   title = 'rc6algorithmangularnetcore';
   loginDto = new Login();
   registerDto = new Register();
   jwtDto = new JwtAuth();
+  company?: Company;
 
   constructor(
     private authService: AuthenticationService,
@@ -46,11 +40,11 @@ export class AppComponent implements OnInit {
     });
   }
 
-  invoices() {
-    this.invoiceService.getInvoices().subscribe((invoices: any) => {
-      console.log(invoices);
-    })
-  }
+  // invoices() {
+  //   this.invoiceService.getInvoices().subscribe((invoices: any) => {
+  //     console.log(invoices);
+  //   })
+  // }
 
   // getForecasts() {
   //   this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(

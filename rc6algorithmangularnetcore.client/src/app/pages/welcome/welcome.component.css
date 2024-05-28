@@ -1,1 +1,14 @@
+.subtitle {
+    margin: 0 20%;
+}
 
+.text-content {
+    text-transform: none;
+    font-family: Montserrat;
+    font-weight: normal;
+    margin: 1rem 20%;
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: white;
+    text-align: justify;
+}

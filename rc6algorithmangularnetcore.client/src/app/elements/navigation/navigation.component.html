@@ -1,13 +1,11 @@
 <header>
   <div class="title">{{ title }}</div>
   <nav>
-    <a *ngIf="isLoggedIn" routerLink="/dashboard">Dashboard</a>
-    <a *ngIf="isLoggedIn" routerLink="/welcome">Main</a>
-    <a *ngIf="isLoggedIn" routerLink="/invoices">Invoices</a>
-    <a *ngIf="isLoggedIn" routerLink="/thesis">Thesis</a>
-    <a *ngIf="isLoggedIn" routerLink="/rc6">Description of RC6</a>
-    <a *ngIf="isLoggedIn" routerLink="/profile">Profile</a>
-
-    <a *ngIf="!isLoggedIn" routerLink="/auth">Login or Registry</a>
+    {{company ? company.name : "nothing"}}
+    <a *ngIf="company" routerLink="/welcome">Main</a>
+    <a *ngIf="company" routerLink="/invoices">Invoices</a>
+    <a *ngIf="company" routerLink="/profile">Profile</a>
+    <a routerLink="/rc6">Description of RC6</a>
+    <a *ngIf="!company" routerLink="/auth">Login or Registry</a>
   </nav>
 </header>

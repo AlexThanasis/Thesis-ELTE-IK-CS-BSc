@@ -36,8 +36,7 @@ export class AuthComponent {
     this.authService.register(registerDto).subscribe();
     this.companyService.addCompany(companyRegisterDto).subscribe();
     console.log("Register> ");
-    this.router.navigate(['/dashboard']);
-
+    this.router.navigate(['/invoices']);
   }
 
   login(loginDto: Login) {
@@ -45,7 +44,7 @@ export class AuthComponent {
 
     this.authService.login(loginDto).subscribe((jwtDto) => {
       localStorage.setItem('jwtToken', jwtDto.token);
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/invoices']);
     });
   }
 

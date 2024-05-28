@@ -20,7 +20,6 @@ namespace RC6AlgorithmAngularNetCore.Server.Controllers
             {
                 return BadRequest("Key size should be 128 or 192 or 256 ");
             }
-            Console.WriteLine("cucc:" + encryptionDTO.KeySize / encryptionDTO.Key.Length);
             if (encryptionDTO.KeySize / encryptionDTO.Key.Length >= 8)
             {
                 return BadRequest("Key string is not enought long, it should be longer than " + encryptionDTO.KeySize / 8);
