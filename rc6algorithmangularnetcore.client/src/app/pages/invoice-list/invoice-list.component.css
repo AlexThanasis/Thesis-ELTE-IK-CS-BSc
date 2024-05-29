@@ -21,6 +21,8 @@ ul {
 .invoice-list {
     margin: 50px 20px;
     display: flex;
-    justify-content: center;
+    justify-content: start;
+    flex-wrap: wrap;
+    flex-direction: row;
     gap: 15px;
 }
