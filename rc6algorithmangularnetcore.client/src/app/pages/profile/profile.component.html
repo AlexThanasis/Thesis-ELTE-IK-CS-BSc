@@ -2,7 +2,7 @@
     <h2 class="title">Profile</h2>
     <div *ngIf="!company" class="label">Something wrong with user data</div>
     <div *ngIf="company" class="form-section">
-        <div class="row">Company email: <span>{{ company.email }}</span></div>
+        <div class="row">Company email: <span>{{ userData.email }}</span></div>
         <div class="row">Company address: <span>{{ company.address }}</span></div>
         <div class="row">Company Official Name: <span>{{ company.name }}</span></div>
         <div class="row">Our taxnumber: <span>{{ company.taxNumber }}</span></div>

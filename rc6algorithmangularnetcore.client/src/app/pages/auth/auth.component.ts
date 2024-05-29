@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Login } from '../../models/login';
-import { InvoicesService } from '../../services/invoices.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Register } from '../../models/register';
 import { JwtAuth } from '../../models/jwtAuth';
@@ -39,7 +38,7 @@ export class AuthComponent {
           (user) => {
             this.authService.onGetInfo$.next(user);
             if (user.result.email) {
-              this.companyService.getCompany(user.result.email).subscribe(
+              this.companyService.getCompany(registerDto.email).subscribe(
                 (company) => {
                   this.authService.onGetInfo$.next(company);
                   this.router.navigate(['/invoices']);
@@ -90,5 +89,14 @@ export class AuthComponent {
         this.isUserError = true;
         console.error(error);
       });
+  }
+
+  isRegFieldsOk(): boolean {
+    if (this.userRegisterDto.email.length > 0 && this.userRegisterDto.password.length > 0 && this.companyRegisterDto.address.length > 0 &&
+      this.userRegisterDto.name.length > 0 && !!this.companyRegisterDto.companyId && this.companyRegisterDto.email.length > 0 &&
+      this.companyRegisterDto.taxNumber.length > 0) {
+      return true;
+    }
+    return false;
   }
 }

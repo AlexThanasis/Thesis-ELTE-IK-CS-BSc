@@ -17,7 +17,7 @@
             <div class="row">tax number:<input type="text" [(ngModel)]="companyRegisterDto.taxNumber"></div>
             <div class="row">address:<input type="text" [(ngModel)]="companyRegisterDto.address"></div>
             <div class="">
-                <button (click)="register(userRegisterDto, companyRegisterDto);">Register</button>
+                <button [disabled]="isRegFieldsOk()" (click)="register(userRegisterDto, companyRegisterDto);">Register</button>
             </div>
             <div *ngIf="isCompanyError" class="error-text">
                 Please register with correct email and password

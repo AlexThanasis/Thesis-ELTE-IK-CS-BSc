@@ -21,11 +21,16 @@ export class Rc6Component {
   }
 
   encrypt(plainText: string, keySize: number, key: string) {
-    this.rc6Service.encrypt({ plainText, keySize, key }).subscribe(data => this.cipherText = data);
-  }
-
-  decrypt(cipherText: string, keySize: number, key: string) {
-    this.rc6Service.decrypt({ cipherText, keySize, key }).subscribe(data => this.decipheredText = data);
+    this.rc6Service.encrypt({ plainText, keySize, key }).subscribe(
+      (data) => this.cipherText = data,
+      (error) => console.error(error)
+    )}
+    
+    decrypt(cipherText: string, keySize: number, key: string) {
+      this.rc6Service.decrypt({ cipherText, keySize, key }).subscribe(
+        (data) => this.decipheredText = data,
+        (error) => console.error(error)
+    );
   }
 
   isKeyBiggerThenSize(): boolean {

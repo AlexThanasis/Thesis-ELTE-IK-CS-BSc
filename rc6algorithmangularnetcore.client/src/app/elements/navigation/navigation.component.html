@@ -1,7 +1,7 @@
 <header>
   <div class="title">{{ title }}</div>
   <nav>
-    {{company ? company.name : "nothing"}}
+    {{company ? company.name : ""}}
     <a *ngIf="company" routerLink="/welcome">Main</a>
     <a *ngIf="company" routerLink="/invoices">Invoices</a>
     <a *ngIf="company" routerLink="/profile">Profile</a>

@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       localStorage.setItem("company", JSON.stringify(this.company));
     } else {
       this.userData = event;
-      localStorage.setItem("user", JSON.stringify(this.company));
+      localStorage.setItem("user", JSON.stringify(this.userData.result));
     }
   }
 

@@ -32,6 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
     })
     const company = localStorage.getItem("company");
     const user = localStorage.getItem("user");
+    
     if (company) {
       this.company = JSON.parse(company);
     }
@@ -52,7 +53,7 @@ export class AppComponent implements OnInit, OnDestroy {
       localStorage.setItem("company", JSON.stringify(this.company));
     } else {
       this.userData = event;
-      localStorage.setItem("user", JSON.stringify(this.userData));
+      localStorage.setItem("user", JSON.stringify(this.userData.result));
     }
   }
 }
